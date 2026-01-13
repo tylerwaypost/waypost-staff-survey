@@ -1,4 +1,4 @@
-const AIRTABLE_API_KEY = patFlbergLmgbVjzY.63c492429097f437368effd8011539e20c22e0dec2ca1a2a2f9f873b2bef53a3
+const AIRTABLE_API_KEY = 'patFlbergLmgbVjzY.63c492429097f437368effd8011539e20c22e0dec2ca1a2a2f9f873b2bef53a3';
 const AIRTABLE_BASE_ID = 'apphCeBBITTuh5pb5';
 const AIRTABLE_TABLE_NAME = 'Staff Responses';
 
