@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waypost Staff Survey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-green: #00a750;
+      --brand-green-dark: #008c44;
+      --brand-cream: #fff2d6;
+      --brand-cream-bg: #f5e6c8;
+      --text-black: #000000;
+      --text-gray: #6F6F6F;
+      --bg-main: #fafaf9;
+      --border-light: #e7e5e4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-black);
+      line-height: 1.5;
+    }
+
+    .header {
+      background: white;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--brand-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo svg { width: 100%; height: 100%; }
+
+    .header-title { font-weight: 700; font-size: 20px; }
+
+    .tab-nav {
+      background: white;
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 24px;
+    }
+
+    .tab-nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 16px 20px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-gray);
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover { color: var(--brand-green); }
+    .tab-btn.active { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 140px;
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .section-header { margin-bottom: 36px; text-align: center; }
+    .section-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .section-desc { font-size: 16px; color: var(--text-gray); }
+
+    .form-group { margin-bottom: 32px; }
+    .form-label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .form-hint { font-size: 14px; color: var(--text-gray); margin-bottom: 12px; }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-light);
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--brand-green);
+      background: var(--brand-cream);
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236F6F6F' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 20px;
+      padding-right: 44px;
+    }
+
+    .slider-container { padding: 16px 0; }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      background: var(--brand-green);
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: var(--brand-cream);
+      border: 3px solid var(--brand-green);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      background: var(--brand-cream);
+      border: 3px solid var(--brand-green);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--brand-green);
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    .radio-group { display: flex; flex-direction: column; gap: 10px; }
+
+    .radio-option {
+      padding: 14px 16px;
+      border: 2px solid var(--border-light);
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .radio-option:hover { border-color: #ccc; }
+    .radio-option.selected { border-color: var(--brand-green); background: #f0fdf4; }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s;
+    }
+
+    .radio-option.selected .radio-circle { border: 6px solid var(--brand-green); }
+
+    .radio-content { flex: 1; }
+    .radio-label { font-weight: 600; }
+    .radio-desc { font-size: 14px; color: var(--text-gray); margin-top: 2px; }
+
+    .nested-fields {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+      display: none;
+    }
+
+    .radio-option.selected .nested-fields { display: block; }
+
+    .nested-fields .form-label { font-size: 14px; margin-bottom: 6px; }
+    .nested-fields input, .nested-fields select, .nested-fields textarea {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .inline-fields { display: flex; gap: 12px; flex-wrap: wrap; }
+    .inline-fields > div { flex: 1; min-width: 120px; }
+
+    .time-input { display: flex; gap: 8px; }
+    .time-input input { width: 80px; flex-shrink: 0; }
+    .time-input select { flex: 1; }
+
+    .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      padding: 10px 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 24px;
+      background: white;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-gray);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .pill:hover { border-color: #ccc; }
+    .pill.selected { border-color: var(--brand-green); background: var(--brand-cream); color: var(--brand-green); }
+
+    .card {
+      background: white;
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-number { font-weight: 700; color: var(--brand-green); font-size: 18px; }
+
+    .card-remove {
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      cursor: pointer;
+      font-size: 20px;
+      padding: 4px 8px;
+    }
+
+    .card-remove:hover { color: #dc2626; }
+
+    .task-intro {
+      background: var(--brand-green);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
+
+    .task-intro h3 { font-size: 18px; margin-bottom: 8px; }
+    .task-intro p { opacity: 0.95; line-height: 1.6; }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--brand-green);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover { background: var(--brand-green-dark); }
+
+    .btn-secondary {
+      background: white;
+      color: var(--brand-green);
+      border: 2px solid var(--brand-green);
+    }
+
+    .btn-secondary:hover { background: #f0fdf4; }
+
+    .btn-ghost {
+      background: white;
+      color: var(--text-gray);
+      border: 2px solid var(--border-light);
+    }
+
+    .btn-ghost:hover { border-color: #ccc; }
+
+    .footer-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--border-light);
+      padding: 16px 24px;
+    }
+
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .auto-save {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-top: 8px;
+    }
+
+    .welcome-box {
+      background: var(--brand-cream);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .welcome-box h1 { font-size: 36px; margin-bottom: 16px; }
+    .welcome-box p { font-size: 16px; color: var(--text-gray); line-height: 1.7; margin-bottom: 12px; }
+    .welcome-time { font-size: 14px; color: var(--text-gray); font-style: italic; }
+
+    .complete-box { text-align: center; padding: 60px 24px; }
+
+    .complete-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--brand-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .complete-icon svg { width: 40px; height: 40px; stroke: white; stroke-width: 3; fill: none; }
+    .complete-title { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .complete-desc { font-size: 16px; color: var(--text-gray); }
+
+    @media (max-width: 600px) {
+      .main { padding: 24px 16px 140px; }
+      .section-title { font-size: 26px; }
+      .tab-btn { padding: 14px 16px; font-size: 14px; }
+      .welcome-box { padding: 28px 20px; }
+      .welcome-box h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="50" fill="#f5e6c8"/>
+          <path d="M15,50 L35,30 L35,42 L85,42 L85,58 L35,58 L35,70 Z" fill="#00a750"/>
+          <text x="58" y="58" fill="#f5e6c8" font-family="sans-serif" font-weight="bold" font-size="24">W</text>
+        </svg>
+      </div>
+      <div class="header-title">Waypost Staff Survey</div>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="goToSection(0)">Welcome</button>
+      <button class="tab-btn" onclick="goToSection(1)">Capacity</button>
+      <button class="tab-btn" onclick="goToSection(2)">Workflow</button>
+      <button class="tab-btn" onclick="goToSection(3)">Energy</button>
+      <button class="tab-btn" onclick="goToSection(4)">Forward</button>
+      <button class="tab-btn" onclick="goToSection(5)">Closing</button>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- Welcome -->
+    <div class="section active" id="section-0">
+      <div class="welcome-box">
+        <h1>Staff Development Survey</h1>
+        <p>This assessment helps map your current workload, energy patterns, and growth opportunities. Your honest input shapes how we evolve roles and support each other.</p>
+        <p>This isn't about performance evaluation — it's about building something that works for everyone.</p>
+        <p class="welcome-time">Estimated time: 20-25 minutes</p>
+      </div>
+    </div>
+
+    <!-- Capacity -->
+    <div class="section" id="section-1">
+      <div class="section-header">
+        <h2 class="section-title">Capacity Snapshot</h2>
+        <p class="section-desc">Quick pulse before we dig in</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">How stretched are you right now?</label>
+        <div class="slider-container">
+          <input type="range" id="capacity_stretched" name="capacity_stretched" min="1" max="10" value="5">
+          <div class="slider-labels">
+            <span>Manageable</span>
+            <span>At capacity</span>
+            <span>Stretched</span>
+            <span>Drowning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">How many "hats" are you wearing?</label>
+        <p class="form-hint">Count anything that feels like a separate job — official or not</p>
+        <input type="text" id="capacity_hats" name="capacity_hats" placeholder="#">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">How clear is your role right now?</label>
+        <div class="slider-container">
+          <input type="range" id="capacity_role_clarity" name="capacity_role_clarity" min="1" max="10" value="7">
+          <div class="slider-labels">
+            <span>Making it up daily</span>
+            <span>Fuzzy edges</span>
+            <span>Mostly clear</span>
+            <span>Clear</span>
+            <span>Crystal clear</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">At your current pace, how long can you sustain this?</label>
+        <select id="capacity_sustainability" name="capacity_sustainability">
+          <option value="">Select timeframe...</option>
+          <option>A few more weeks</option>
+          <option>A few more months</option>
+          <option>6-12 months</option>
+          <option>Indefinitely — I'm okay</option>
+          <option>Already past my limit</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Anything else about your capacity?</label>
+        <p class="form-hint">Optional — share any context...</p>
+        <textarea id="capacity_notes" name="capacity_notes" placeholder="Optional — share any context..."></textarea>
+      </div>
+    </div>
+
+    <!-- Workflow Steps -->
+    <div class="section" id="section-2">
+      <div class="section-header">
+        <h2 class="section-title">Workflow Steps</h2>
+        <p class="section-desc">Let's map the multi-step processes you're responsible for</p>
+      </div>
+
+      <div class="task-intro">
+        <h3>What counts as a task?</h3>
+        <p>A <strong>task</strong> is a multi-step process that happens with regularity, has a clear trigger, and would have consequences if not completed.</p>
+      </div>
+
+      <div id="tasks-container">
+        <!-- Task 1 -->
+        <div class="card task-card" data-task="1">
+          <div class="card-header">
+            <span class="card-number">Task #1</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Task Name & Purpose</label>
+            <p class="form-hint">What is this task and why does it exist?</p>
+            <input type="text" class="task-name" placeholder="e.g., Monthly grant reporting">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What initiates this task?</label>
+            <div class="radio-group trigger-group">
+              <div class="radio-option" onclick="selectTrigger(this, 'scheduled')">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">It happens on a set schedule</span>
+                  <div class="nested-fields">
+                    <div class="inline-fields">
+                      <div>
+                        <label class="form-label">How often?</label>
+                        <select class="task-frequency">
+                          <option value="">Select...</option>
+                          <option>Daily</option>
+                          <option>Weekly</option>
+                          <option>Bi-weekly</option>
+                          <option>Monthly</option>
+                          <option>Quarterly</option>
+                          <option>Annually</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="form-label">Time to complete</label>
+                        <div class="time-input">
+                          <input type="number" class="task-time-value" placeholder="0">
+                          <select class="task-time-unit">
+                            <option>Minutes</option>
+                            <option>Hours</option>
+                            <option>Days</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="radio-option" onclick="selectTrigger(this, 'event')">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">It's triggered by an event or situation</span>
+                  <div class="nested-fields">
+                    <label class="form-label">Describe the trigger</label>
+                    <input type="text" class="task-trigger-desc" placeholder="e.g., When a new client calls in">
+                    <div style="margin-top: 12px;">
+                      <label class="form-label">Time to complete</label>
+                      <div class="time-input">
+                        <input type="number" class="task-time-value" placeholder="0">
+                        <select class="task-time-unit">
+                          <option>Minutes</option>
+                          <option>Hours</option>
+                          <option>Days</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="radio-option" onclick="selectTrigger(this, 'both')">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">Both — scheduled AND event-triggered</span>
+                  <div class="nested-fields">
+                    <label class="form-label">Describe the pattern</label>
+                    <textarea class="task-pattern" placeholder="e.g., Weekly on Mondays, but also whenever a crisis call comes in" style="min-height: 80px;"></textarea>
+                    <div style="margin-top: 12px;">
+                      <label class="form-label">Time to complete</label>
+                      <div class="time-input">
+                        <input type="number" class="task-time-value" placeholder="0">
+                        <select class="task-time-unit">
+                          <option>Minutes</option>
+                          <option>Hours</option>
+                          <option>Days</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Steps & Dependencies</label>
+            <p class="form-hint">Walk through the process step by step.</p>
+            <textarea class="task-steps" placeholder="1. First I...&#10;2. Then I...&#10;3. Next..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Dependencies</label>
+            <p class="form-hint">List the variables that affect this task.</p>
+            <textarea class="task-dependencies" placeholder="e.g., Need ED approval before submitting..." style="min-height: 80px;"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">If this task wasn't completed, what would happen?</label>
+            <select class="task-impact">
+              <option value="">Select primary impact...</option>
+              <option>Survivor impact</option>
+              <option>Team/colleague impact</option>
+              <option>Compliance/legal risk</option>
+              <option>Operational disruption</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What's at stake if this doesn't get done?</label>
+            <textarea class="task-stakes" placeholder="Describe the real-world consequences..." style="min-height: 80px;"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">How critical is this task?</label>
+            <div class="radio-group criticality-group">
+              <div class="radio-option" onclick="selectRadio(this)">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">Critical</span>
+                  <span class="radio-desc">Organization can't function without this</span>
+                </div>
+              </div>
+              <div class="radio-option" onclick="selectRadio(this)">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">Important</span>
+                  <span class="radio-desc">Would feel the impact quickly</span>
+                </div>
+              </div>
+              <div class="radio-option" onclick="selectRadio(this)">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">Nice to Have</span>
+                  <span class="radio-desc">Helpful but not essential</span>
+                </div>
+              </div>
+              <div class="radio-option" onclick="selectRadio(this)">
+                <div class="radio-circle"></div>
+                <div class="radio-content">
+                  <span class="radio-label">Unclear</span>
+                  <span class="radio-desc">Not sure of its importance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Workflow Style</label>
+            <select class="task-workflow-style">
+              <option value="">Select...</option>
+              <option>Manual — mostly or entirely by hand</option>
+              <option>Digital — mostly or entirely in systems/software</option>
+              <option>Mixture — combination of manual and digital</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What are the friction points?</label>
+            <p class="form-hint">What's frustrating, inefficient, or harder than it needs to be?</p>
+            <textarea class="task-friction" placeholder="Describe the pain points..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">✨ Magic Wand</label>
+            <p class="form-hint">If you could change one thing about this task, what would it be?</p>
+            <textarea class="task-magic-wand" placeholder="In a perfect world..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" style="width: 100%;" onclick="addTask()">+ Add Another Task</button>
+    </div>
+
+    <!-- Energy Drains -->
+    <div class="section" id="section-3">
+      <div class="section-header">
+        <h2 class="section-title">Energy Drains</h2>
+        <p class="section-desc">Understanding what energizes and drains you</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What work gives you energy?</label>
+        <p class="form-hint">Describe the types of tasks or interactions that energize you.</p>
+        <textarea id="energy_gives" name="energy_gives" placeholder="When I'm doing ___, I feel energized because..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What percentage of your current work energizes you?</label>
+        <div class="slider-container">
+          <input type="range" id="energy_percent" name="energy_percent" min="0" max="100" value="50">
+          <div class="slider-labels">
+            <span>0%</span>
+            <span>50%</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Which pillar energizes you most?</label>
+        <div class="radio-group" id="energy_pillar_group">
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Programs">
+            <div class="radio-circle"></div>
+            <div class="radio-content">
+              <span class="radio-label">Programs</span>
+              <span class="radio-desc">Direct survivor services, advocacy, prevention</span>
+            </div>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Operations">
+            <div class="radio-circle"></div>
+            <div class="radio-content">
+              <span class="radio-label">Operations</span>
+              <span class="radio-desc">Facilities, technology, logistics</span>
+            </div>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Administration">
+            <div class="radio-circle"></div>
+            <div class="radio-content">
+              <span class="radio-label">Administration</span>
+              <span class="radio-desc">Finance, HR, development/fundraising</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What 2-3 things drain your energy the most?</label>
+        <p class="form-hint">Don't overthink it — what comes to mind first?</p>
+        <textarea id="energy_drains" name="energy_drains" placeholder="The things that leave me depleted..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What's at the root of these drains?</label>
+        <p class="form-hint">Select all that apply.</p>
+        <div class="pill-group" id="drain_roots">
+          <button type="button" class="pill" onclick="togglePill(this)">Too much volume</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Wrong fit for skills</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Lack of clarity</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Inefficient process</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Emotional weight</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Lack of support</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Feels pointless</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Constant interruptions</button>
+          <button type="button" class="pill" onclick="togglePill(this)">Tools/systems issues</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">If you could change ONE thing tomorrow, what would it be?</label>
+        <input type="text" id="energy_one_change" name="energy_one_change" placeholder="The single biggest change...">
+      </div>
+    </div>
+
+    <!-- Forward -->
+    <div class="section" id="section-4">
+      <div class="section-header">
+        <h2 class="section-title">Looking Forward</h2>
+        <p class="section-desc">As Waypost evolves, where do you want to be?</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">In the next 1-2 years, I want to:</label>
+        <div class="radio-group" id="forward_direction_group">
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Deepen in my current area">
+            <div class="radio-circle"></div>
+            <span class="radio-label">Deepen in my current area</span>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Shift focus to a different pillar">
+            <div class="radio-circle"></div>
+            <span class="radio-label">Shift focus to a different pillar</span>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Take on more leadership/management">
+            <div class="radio-circle"></div>
+            <span class="radio-label">Take on more leadership/management</span>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Specialize in a specific function">
+            <div class="radio-circle"></div>
+            <span class="radio-label">Specialize in a specific function</span>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Reduce scope and go deeper">
+            <div class="radio-circle"></div>
+            <span class="radio-label">Reduce scope and go deeper</span>
+          </div>
+          <div class="radio-option" onclick="selectRadio(this)" data-value="Not sure yet">
+            <div class="radio-circle"></div>
+            <span class="radio-label">I'm honestly not sure yet</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What skill would you like to develop?</label>
+        <p class="form-hint">Something that would help both you AND Waypost.</p>
+        <input type="text" id="forward_skill" name="forward_skill" placeholder="One skill or capability...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What support would help you get there?</label>
+        <textarea id="forward_support" name="forward_support" placeholder="Training, mentorship, role changes, resources..."></textarea>
+      </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="section" id="section-5">
+      <div class="section-header">
+        <h2 class="section-title">Closing</h2>
+        <p class="section-desc">Last chance to share what matters most</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What's the ONE thing you most want leadership to understand?</label>
+        <textarea id="closing_one_thing" name="closing_one_thing" placeholder="The most important thing..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Any ideas for how Waypost could work smarter overall?</label>
+        <p class="form-hint">Optional — beyond just your role.</p>
+        <textarea id="closing_ideas" name="closing_ideas" placeholder="Ideas, observations, suggestions..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Anything else?</label>
+        <textarea id="closing_else" name="closing_else" placeholder="Optional..."></textarea>
+      </div>
+    </div>
+
+    <!-- Complete -->
+    <div class="section" id="section-6">
+      <div class="complete-box">
+        <div class="complete-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 class="complete-title">Thank You</h2>
+        <p class="complete-desc">Your responses have been submitted. Leadership will review all feedback and follow up with next steps.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer-nav">
+    <div class="footer-inner">
+      <button class="btn btn-ghost" id="backBtn" onclick="prevSection()">Back</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextSection()">Continue</button>
+    </div>
+    <div class="auto-save">Auto-saved</div>
+  </footer>
+
+  <script>
+    let currentSection = 0;
+    const totalSections = 7;
+    let taskCount = 1;
+    const STORAGE_KEY = 'waypost_staff_survey';
+
+    // Navigation
+    function updateUI() {
+      document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === currentSection));
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === currentSection));
+      
+      document.getElementById('backBtn').style.visibility = currentSection === 0 ? 'hidden' : 'visible';
+      
+      if (currentSection === totalSections - 2) {
+        document.getElementById('nextBtn').textContent = 'Submit';
+      } else if (currentSection === totalSections - 1) {
+        document.querySelector('.footer-nav').style.display = 'none';
+      } else {
+        document.getElementById('nextBtn').textContent = currentSection === 0 ? 'Begin' : 'Continue';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      saveToLocalStorage();
+    }
+
+    function goToSection(i) { currentSection = i; updateUI(); }
+    
+    function nextSection() {
+      if (currentSection === totalSections - 2) {
+        submitSurvey();
+      } else if (currentSection < totalSections - 1) {
+        currentSection++;
+        updateUI();
+      }
+    }
+    
+    function prevSection() { if (currentSection > 0) { currentSection--; updateUI(); } }
+
+    // Radio and Pills
+    function selectRadio(el) {
+      el.closest('.radio-group').querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      saveToLocalStorage();
+    }
+
+    function selectTrigger(el, type) {
+      el.closest('.radio-group').querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      el.closest('.task-card').dataset.triggerType = type;
+      saveToLocalStorage();
+    }
+
+    function togglePill(el) { 
+      el.classList.toggle('selected'); 
+      saveToLocalStorage();
+    }
+
+    // Add Task
+    function addTask() {
+      taskCount++;
+      const container = document.getElementById('tasks-container');
+      const template = container.querySelector('.task-card').cloneNode(true);
+      
+      template.dataset.task = taskCount;
+      template.querySelector('.card-number').textContent = `Task #${taskCount}`;
+      
+      // Clear all inputs
+      template.querySelectorAll('input, textarea, select').forEach(el => {
+        if (el.type === 'number') el.value = '';
+        else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+      });
+      template.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+      
+      // Add remove button
+      const header = template.querySelector('.card-header');
+      if (!header.querySelector('.card-remove')) {
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'card-remove';
+        removeBtn.innerHTML = '×';
+        removeBtn.onclick = function() { removeTask(template); };
+        header.appendChild(removeBtn);
+      }
+      
+      container.appendChild(template);
+      saveToLocalStorage();
+    }
+
+    function removeTask(card) {
+      card.remove();
+      // Renumber remaining tasks
+      document.querySelectorAll('.task-card').forEach((c, i) => {
+        c.dataset.task = i + 1;
+        c.querySelector('.card-number').textContent = `Task #${i + 1}`;
+      });
+      taskCount = document.querySelectorAll('.task-card').length;
+      saveToLocalStorage();
+    }
+
+    // Collect all form data
+    function collectFormData() {
+      const data = {
+        'Submitted At': new Date().toISOString(),
+        
+        // Capacity
+        'Capacity - Stretched': document.getElementById('capacity_stretched').value,
+        'Capacity - Hats': document.getElementById('capacity_hats').value,
+        'Capacity - Role Clarity': document.getElementById('capacity_role_clarity').value,
+        'Capacity - Sustainability': document.getElementById('capacity_sustainability').value,
+        'Capacity - Notes': document.getElementById('capacity_notes').value,
+        
+        // Energy
+        'Energy - What Gives': document.getElementById('energy_gives').value,
+        'Energy - Percent': document.getElementById('energy_percent').value,
+        'Energy - Pillar': getSelectedRadio('energy_pillar_group'),
+        'Energy - Drains': document.getElementById('energy_drains').value,
+        'Energy - Drain Roots': getSelectedPills('drain_roots'),
+        'Energy - One Change': document.getElementById('energy_one_change').value,
+        
+        // Forward
+        'Forward - Direction': getSelectedRadio('forward_direction_group'),
+        'Forward - Skill': document.getElementById('forward_skill').value,
+        'Forward - Support': document.getElementById('forward_support').value,
+        
+        // Closing
+        'Closing - One Thing': document.getElementById('closing_one_thing').value,
+        'Closing - Ideas': document.getElementById('closing_ideas').value,
+        'Closing - Else': document.getElementById('closing_else').value
+      };
+
+      // Collect all tasks
+      document.querySelectorAll('.task-card').forEach((card, index) => {
+        const num = index + 1;
+        const prefix = `Task ${num}`;
+        
+        data[`${prefix} - Name`] = card.querySelector('.task-name').value;
+        data[`${prefix} - Trigger Type`] = card.dataset.triggerType || '';
+        
+        // Get nested fields based on trigger type
+        const selectedTrigger = card.querySelector('.trigger-group .radio-option.selected');
+        if (selectedTrigger) {
+          const frequency = selectedTrigger.querySelector('.task-frequency');
+          if (frequency) data[`${prefix} - Frequency`] = frequency.value;
+          
+          const triggerDesc = selectedTrigger.querySelector('.task-trigger-desc');
+          if (triggerDesc) data[`${prefix} - Trigger Desc`] = triggerDesc.value;
+          
+          const pattern = selectedTrigger.querySelector('.task-pattern');
+          if (pattern) data[`${prefix} - Pattern`] = pattern.value;
+          
+          const timeValue = selectedTrigger.querySelector('.task-time-value');
+          const timeUnit = selectedTrigger.querySelector('.task-time-unit');
+          if (timeValue && timeUnit) {
+            data[`${prefix} - Time`] = timeValue.value ? `${timeValue.value} ${timeUnit.value}` : '';
+          }
+        }
+        
+        data[`${prefix} - Steps`] = card.querySelector('.task-steps').value;
+        data[`${prefix} - Dependencies`] = card.querySelector('.task-dependencies').value;
+        data[`${prefix} - Impact`] = card.querySelector('.task-impact').value;
+        data[`${prefix} - Stakes`] = card.querySelector('.task-stakes').value;
+        data[`${prefix} - Criticality`] = getCardRadio(card, '.criticality-group');
+        data[`${prefix} - Workflow Style`] = card.querySelector('.task-workflow-style').value;
+        data[`${prefix} - Friction`] = card.querySelector('.task-friction').value;
+        data[`${prefix} - Magic Wand`] = card.querySelector('.task-magic-wand').value;
+      });
+
+      return data;
+    }
+
+    function getSelectedRadio(groupId) {
+      const group = document.getElementById(groupId);
+      const selected = group.querySelector('.radio-option.selected');
+      return selected ? (selected.dataset.value || selected.querySelector('.radio-label').textContent) : '';
+    }
+
+    function getCardRadio(card, selector) {
+      const group = card.querySelector(selector);
+      const selected = group.querySelector('.radio-option.selected');
+      return selected ? selected.querySelector('.radio-label').textContent : '';
+    }
+
+    function getSelectedPills(groupId) {
+      const group = document.getElementById(groupId);
+      const selected = group.querySelectorAll('.pill.selected');
+      return Array.from(selected).map(p => p.textContent).join(', ');
+    }
+
+    // Submit
+    async function submitSurvey() {
+      const btn = document.getElementById('nextBtn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      try {
+        const data = collectFormData();
+        
+        const response = await fetch('/.netlify/functions/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Submit failed');
+
+        localStorage.removeItem(STORAGE_KEY);
+        currentSection = totalSections - 1;
+        updateUI();
+      } catch (err) {
+        console.error(err);
+        alert('There was an error submitting. Please try again.');
+        btn.textContent = 'Submit';
+        btn.disabled = false;
+      }
+    }
+
+    // LocalStorage
+    function saveToLocalStorage() {
+      const data = {
+        currentSection,
+        taskCount,
+        formData: collectFormData()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+
+      try {
+        const data = JSON.parse(saved);
+        
+        // Restore simple fields
+        if (data.formData) {
+          // Capacity
+          if (data.formData['Capacity - Stretched']) document.getElementById('capacity_stretched').value = data.formData['Capacity - Stretched'];
+          if (data.formData['Capacity - Hats']) document.getElementById('capacity_hats').value = data.formData['Capacity - Hats'];
+          if (data.formData['Capacity - Role Clarity']) document.getElementById('capacity_role_clarity').value = data.formData['Capacity - Role Clarity'];
+          if (data.formData['Capacity - Sustainability']) document.getElementById('capacity_sustainability').value = data.formData['Capacity - Sustainability'];
+          if (data.formData['Capacity - Notes']) document.getElementById('capacity_notes').value = data.formData['Capacity - Notes'];
+          
+          // Energy
+          if (data.formData['Energy - What Gives']) document.getElementById('energy_gives').value = data.formData['Energy - What Gives'];
+          if (data.formData['Energy - Percent']) document.getElementById('energy_percent').value = data.formData['Energy - Percent'];
+          if (data.formData['Energy - Drains']) document.getElementById('energy_drains').value = data.formData['Energy - Drains'];
+          if (data.formData['Energy - One Change']) document.getElementById('energy_one_change').value = data.formData['Energy - One Change'];
+          
+          // Restore pillar selection
+          if (data.formData['Energy - Pillar']) {
+            document.querySelectorAll('#energy_pillar_group .radio-option').forEach(opt => {
+              if (opt.dataset.value === data.formData['Energy - Pillar']) opt.classList.add('selected');
+            });
+          }
+          
+          // Restore drain roots
+          if (data.formData['Energy - Drain Roots']) {
+            const roots = data.formData['Energy - Drain Roots'].split(', ');
+            document.querySelectorAll('#drain_roots .pill').forEach(pill => {
+              if (roots.includes(pill.textContent)) pill.classList.add('selected');
+            });
+          }
+          
+          // Forward
+          if (data.formData['Forward - Direction']) {
+            document.querySelectorAll('#forward_direction_group .radio-option').forEach(opt => {
+              if (opt.dataset.value === data.formData['Forward - Direction']) opt.classList.add('selected');
+            });
+          }
+          if (data.formData['Forward - Skill']) document.getElementById('forward_skill').value = data.formData['Forward - Skill'];
+          if (data.formData['Forward - Support']) document.getElementById('forward_support').value = data.formData['Forward - Support'];
+          
+          // Closing
+          if (data.formData['Closing - One Thing']) document.getElementById('closing_one_thing').value = data.formData['Closing - One Thing'];
+          if (data.formData['Closing - Ideas']) document.getElementById('closing_ideas').value = data.formData['Closing - Ideas'];
+          if (data.formData['Closing - Else']) document.getElementById('closing_else').value = data.formData['Closing - Else'];
+          
+          // Restore Task 1
+          const task1 = document.querySelector('.task-card[data-task="1"]');
+          if (task1 && data.formData['Task 1 - Name']) {
+            task1.querySelector('.task-name').value = data.formData['Task 1 - Name'] || '';
+            task1.querySelector('.task-steps').value = data.formData['Task 1 - Steps'] || '';
+            task1.querySelector('.task-dependencies').value = data.formData['Task 1 - Dependencies'] || '';
+            task1.querySelector('.task-impact').value = data.formData['Task 1 - Impact'] || '';
+            task1.querySelector('.task-stakes').value = data.formData['Task 1 - Stakes'] || '';
+            task1.querySelector('.task-workflow-style').value = data.formData['Task 1 - Workflow Style'] || '';
+            task1.querySelector('.task-friction').value = data.formData['Task 1 - Friction'] || '';
+            task1.querySelector('.task-magic-wand').value = data.formData['Task 1 - Magic Wand'] || '';
+          }
+        }
+        
+        if (data.currentSection) {
+          currentSection = data.currentSection;
+        }
+      } catch (e) {
+        console.error('Error loading saved data:', e);
+      }
+    }
+
+    // Auto-save on input
+    document.addEventListener('input', saveToLocalStorage);
+    document.addEventListener('change', saveToLocalStorage);
+
+    // Init
+    loadFromLocalStorage();
+    updateUI();
+  </script>
+
+</body>
+</html>
